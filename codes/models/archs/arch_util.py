@@ -13,6 +13,7 @@ def default_init_weights(module_list, scale=1, bias_fill=0, **kwargs):
 
     Args:
         module_list (list[nn.Module] | nn.Module): Modules to be initialized.
+        modules could me nn.Conv2d, nn.Linear,etc.
         scale (float): Scale initialized weights, especially for residual
             blocks. Default: 1.
         bias_fill (float): The value to fill bias. Default: 0
@@ -23,6 +24,7 @@ def default_init_weights(module_list, scale=1, bias_fill=0, **kwargs):
     for module in module_list:
         for m in module.modules():
             if isinstance(m, nn.Conv2d):
+                # normalisation method
                 init.kaiming_normal_(m.weight, **kwargs)
                 m.weight.data *= scale
                 if m.bias is not None:
